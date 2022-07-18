@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import './App.css';
 import { useState } from "react"
 // data
@@ -6,8 +6,13 @@ import News from './data/news.json';
 import navItemsData from './data/navItems.json';
 // components
 import AppNav from './components/AppNav/AppNav.js';
-import ArticleTeaser from './components/ArticleTeaser/ArticleTeaser.js'
-import Article from './components/Article/Article.js'
+
+// import React Router
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+
+// pages
+import HomePage from './pages/HomePage.js'
+import ArticlePage from './pages/ArticlePage.js'
 
 // seed values
 const randomArticleIndex = Math.floor(Math.random() * News.length);
@@ -28,26 +33,20 @@ function App() {
   // renders
   return (
     <div>
-      <h1>AppNav Component</h1>
+      <h1>AppNav Componen</h1>
       <hr />
-
-      <AppNav navItems={navItems} handleNavClick={(clickedItem) => { console.log(clickedItem) }} />
-
-      <h1>ArticleTeaser Component</h1>
-      <hr />
-
-      <ArticleTeaser
-        id={article.id}
-        title={article.title}
-        created_date={article.created_date}
-        handleTitleClick={(articleID) => { console.log(articleID) }} />
-
-      <h1>Article Component</h1>
-      <hr />
-
-      <Article {...article} />
+      <AppNav navItems={navItems} handleNavClick={(clickedItem) => console.log(clickedItem)} />
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/articles/:articleID" element={<ArticlePage />} />
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }
 
 export default App;
+
